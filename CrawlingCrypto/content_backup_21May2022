@@ -1,0 +1,42 @@
+// var dom = document.getElementsByClassName("orderbook_leftItem__0SCEq").childNodes;
+
+
+// while(true){
+//     console.log($(".orderbook_leftItem__0SCEq span").text());
+// }
+
+
+
+//alert(window.location.hostname);
+
+if (window.location.hostname=="www.mexc.com"){
+
+    setInterval(function () {
+        console.clear();
+        var coins =[];
+        var list = $('.marketList_tableRow___duIO').each(function (i, obj) {
+            var child0 = $(obj).children("div")[0];
+            var child0_ = $(child0).children("div").children("div")[2];
+            var childName = $(child0_).clone().children("span").remove().end().text();
+           
+    
+            var child1 = $(obj).children("div")[1];
+            var childPrice = $(child1).children("span").text();
+            
+            
+            console.log( { name: childName, price: childPrice});
+            coins.push({name: childName, price: childPrice});
+        });
+    
+        
+        
+    
+        $.post("http://localhost:3000/price",{arr: JSON.stringify( coins)},  function(result){
+            console.log(result);
+          });
+    
+    }, 1000);
+}
+
+
+// alert("price: "+dom);
